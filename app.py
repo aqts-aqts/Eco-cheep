@@ -191,4 +191,5 @@ def get_bot_response(user: dict[str, str | list[str] | list[dict[str, str]]]) ->
     response = client.chat.completions.create(model='gpt-4o', messages=user['cheep_messages']).choices[0].message.content
     return response
 
-app.run(debug=True)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)

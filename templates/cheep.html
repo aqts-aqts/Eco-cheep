@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheep - Eco-cheep</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='cheep.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Eco-cheep</h1>
+        <div id="chatbox">
+            <div id="messages">
+                {% for sender, message in chat_history[-10:] %}
+                    <div class="message"><strong>{{ sender }}:</strong> {{ message }}</div>
+                {% endfor %}
+            </div>
+        </div>
+        <form action="{{ url_for('cheep') }}" method="POST">
+            <input type="text" name="message" placeholder="Type a message..." autocomplete="off" required>
+            <button type="submit">Send</button>
+        </form>
+        <form action="{{ url_for('clear_chat') }}" method="GET" style="margin-top: 10px;">
+            <button type="submit" class="clear-button">Clear Chat History</button>
+        </form>
+        <form action="{{ url_for('logout') }}" method="GET" style="margin-top: 10px;">
+            <button type="submit" class="logout-button">Log Out</button>
+        </form>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addQuestModal" style="margin-top: 10px;">Add Quest</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#completeQuestModal" style="margin-top: 10px;">Complete Quest</button>
+    </div>
+
+    <!-- Add Quest Modal -->
+    <div class="modal fade" id="addQuestModal" tabindex="-1" role="dialog" aria-labelledby="addQuestModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addQuestModalLabel">Add Quest</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="questForm">
+                        <div class="form-group">
+                            <label for="response" id="question">What is something you did today?</label>
+                            <textarea id="response" name="response" class="form-control" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                    <div id="suggestions" style="display:none;">
+                        <h5>Suggestions to improve sustainability:</h5>
+                        <ul id="suggestions-list"></ul>
+                    </div>
+                    <form id="followUpForm" style="display:none; margin-top: 20px;">
+                        <div class="form-group">
+                            <label for="followUpResponse">Any more details you would like to add?</label>
+                            <textarea id="followUpResponse" name="followUpResponse" class="form-control" rows="2"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Complete Quest Modal -->
+    <div class="modal fade" id="completeQuestModal" tabindex="-1" role="dialog" aria-labelledby="completeQuestModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="completeQuestModalLabel">Complete Quest</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="completeQuestForm" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="questDropdown">Select a Quest</label>
+                            <select id="questDropdown" name="quest" class="form-control"></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="questImage">Upload Image</label>
+                            <input type="file" id="questImage" name="questImage" class="form-control-file">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Complete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

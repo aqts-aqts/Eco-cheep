@@ -85,7 +85,6 @@ $(document).ready(function() {
 
     $('#completeQuestForm').on('submit', function(event) {
         event.preventDefault();
-        var selectedQuest = $('#questDropdown').val();
         var formData = new FormData(this);
         $.ajax({
             url: "/complete_quest",

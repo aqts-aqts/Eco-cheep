@@ -101,6 +101,7 @@ def clear_chat():
 @app.route('/logout')
 def logout():
     session.pop('username', None)
+    session.pop('cheep_messages', None)
     return redirect(url_for('index'))
 
 @app.route('/get_context', methods=['POST'])

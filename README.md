@@ -2,6 +2,8 @@
 
 Eco-cheep is a gamified sustainability platform designed to encourage eco-friendly practices. Users complete sustainability tasks, interact with their virtual pet Cheep, and receive actionable suggestions to improve their impact on the environment.
 
+You can try it at: https://eco-cheep.onrender.com/
+
 ## Features
 
 - **User Authentication:** Secure login and signup system.
